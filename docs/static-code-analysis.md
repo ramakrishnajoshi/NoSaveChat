@@ -117,6 +117,13 @@ git config core.hooksPath config/git-hooks
 chmod +x config/git-hooks/pre-commit
 ```
 
+### Bypassing Pre-commit Hook (Not recommended)
+The standard and most straightforward way to bypass the pre-commit hook (and also the commit-msg hook, if one existed) for a specific commit is to use the --no-verify flag with the git commit command.
+
+```bash
+git commit --no-verify -m "Your commit message"
+```
+
 ### Pre-commit Hook
 
 The pre-commit hook runs the following checks:
