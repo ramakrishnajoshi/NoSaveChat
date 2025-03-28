@@ -125,7 +125,7 @@ These commands should be run from the root directory of the project using your t
     ./gradlew build --scan
     ```
 
-* **Stop Gradle Daemon:** Stops background Gradle processes.
+* **Stop Gradle Daemon:** Stops background Gradle processes. You do not need to execute a separate "start" command after running ./gradlew --stop. After running ./gradlew --stop, just run your next intended Gradle command (e.g., ./gradlew assembleDebug). Gradle will automatically start a new Daemon process for that build if one is needed. The only difference you might notice is that this first build after stopping the daemon might be slightly slower as the new daemon needs to initialize.
     ```bash
     ./gradlew --stop
     ```
