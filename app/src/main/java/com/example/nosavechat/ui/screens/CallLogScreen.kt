@@ -35,15 +35,12 @@ import com.example.nosavechat.viewmodel.CallLogViewModel
  * Screen to display call logs
  */
 @Composable
-fun CallLogScreen(
-    viewModel: CallLogViewModel,
-    modifier: Modifier = Modifier
-) {
+fun CallLogScreen(viewModel: CallLogViewModel, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val callLogs by viewModel.callLogs.observeAsState(initial = emptyList())
     val isLoading by viewModel.isLoading.observeAsState(initial = false)
     val error by viewModel.error.observeAsState(initial = null)
-    
+
     // Permission state
     var hasCallLogPermission by remember {
         mutableStateOf(
@@ -53,7 +50,7 @@ fun CallLogScreen(
             ) == PackageManager.PERMISSION_GRANTED
         )
     }
-    
+
     // Permission launcher
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
@@ -63,7 +60,7 @@ fun CallLogScreen(
             viewModel.loadCallLogs()
         }
     }
-    
+
     // Request permission and load call logs when the screen is first displayed
     LaunchedEffect(hasCallLogPermission) {
         if (!hasCallLogPermission) {
@@ -72,12 +69,12 @@ fun CallLogScreen(
             viewModel.loadCallLogs()
         }
     }
-    
+
     // Clean up when the screen is disposed
     DisposableEffect(Unit) {
         onDispose { }
     }
-    
+
     Box(modifier = modifier.fillMaxSize()) {
         when {
             // Show loading indicator
@@ -86,7 +83,7 @@ fun CallLogScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            
+
             // Show error message
             error != null -> {
                 Text(
@@ -98,7 +95,7 @@ fun CallLogScreen(
                         .padding(16.dp)
                 )
             }
-            
+
             // Show permission denied message
             !hasCallLogPermission -> {
                 Column(
@@ -114,7 +111,7 @@ fun CallLogScreen(
                     )
                 }
             }
-            
+
             // Show empty state
             callLogs.isEmpty() -> {
                 Text(
@@ -125,7 +122,7 @@ fun CallLogScreen(
                     textAlign = TextAlign.Center
                 )
             }
-            
+
             // Show call logs
             else -> {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {

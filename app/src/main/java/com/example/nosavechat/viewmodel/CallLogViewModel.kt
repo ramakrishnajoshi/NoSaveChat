@@ -16,26 +16,26 @@ import kotlinx.coroutines.launch
 class CallLogViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = CallLogRepository(application)
-    
+
     // LiveData to observe call logs
     private val _callLogs = MutableLiveData<List<CallLogItem>>()
     val callLogs: LiveData<List<CallLogItem>> = _callLogs
-    
+
     // LiveData to track loading state
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
-    
+
     // LiveData to track errors
     private val _error = MutableLiveData<String?>(null)
     val error: LiveData<String?> = _error
-    
+
     /**
      * Loads call logs from the repository
      */
     fun loadCallLogs() {
         _isLoading.value = true
         _error.value = null
-        
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val logs = repository.getRecentCalls()

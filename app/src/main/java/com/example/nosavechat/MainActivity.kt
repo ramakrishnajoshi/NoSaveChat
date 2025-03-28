@@ -22,7 +22,7 @@ import com.example.nosavechat.viewmodel.CallLogViewModel
 class MainActivity : ComponentActivity() {
     // Initialize ViewModel
     private val viewModel: CallLogViewModel by viewModels()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

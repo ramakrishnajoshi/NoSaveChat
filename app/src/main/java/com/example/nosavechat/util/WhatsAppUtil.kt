@@ -31,7 +31,7 @@ object WhatsAppUtil {
             false
         }
     }
-    
+
     /**
      * Opens WhatsApp chat with the given phone number
      * @param context Android context
@@ -43,11 +43,11 @@ object WhatsAppUtil {
         if (!isWhatsAppInstalled(context)) {
             // Show a more helpful error message
             Toast.makeText(
-                context, 
-                "WhatsApp is not installed. Please install WhatsApp to use this feature.", 
+                context,
+                "WhatsApp is not installed. Please install WhatsApp to use this feature.",
                 Toast.LENGTH_LONG
             ).show()
-            
+
             // Optionally, open Play Store to download WhatsApp
             try {
                 val storeIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.whatsapp"))
@@ -55,24 +55,27 @@ object WhatsAppUtil {
                 context.startActivity(storeIntent)
             } catch (e: Exception) {
                 // If Play Store is not available, open browser
-                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp"))
+                val webIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")
+                )
                 webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(webIntent)
             }
-            
+
             return false
         }
-        
+
         // Format the phone number (remove spaces, dashes, etc.)
         val formattedNumber = phoneNumber.replace(Regex("[\\s-()]"), "")
-        
+
         // Create the WhatsApp URI
         val uri = Uri.parse("https://api.whatsapp.com/send?phone=$formattedNumber")
-        
+
         // Create the intent
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.setPackage("com.whatsapp")
-        
+
         try {
             context.startActivity(intent)
             return true

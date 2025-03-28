@@ -26,11 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.nosavechat.model.CallLogItem
 
 @Composable
-fun CallLogItemCard(
-    callLogItem: CallLogItem,
-    onWhatsAppClick: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
+fun CallLogItemCard(callLogItem: CallLogItem, onWhatsAppClick: (String) -> Unit, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -50,9 +46,9 @@ fun CallLogItemCard(
                 modifier = Modifier.size(40.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
-            
+
             Spacer(modifier = Modifier.width(16.dp))
-            
+
             // Call details
             Column(
                 modifier = Modifier.weight(1f)
@@ -65,23 +61,23 @@ fun CallLogItemCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                
+
                 // Call type and date
                 Text(
                     text = "${callLogItem.callTypeString} • ${callLogItem.formattedDate}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                
+
                 // Call duration
                 val minutes = callLogItem.duration / 60
                 val seconds = callLogItem.duration % 60
                 val durationText = if (callLogItem.duration > 0) {
-                    "Duration: ${if (minutes > 0) "$minutes min " else ""}${seconds} sec"
+                    "Duration: ${if (minutes > 0) "$minutes min " else ""}$seconds sec"
                 } else {
                     ""
                 }
-                
+
                 if (durationText.isNotEmpty()) {
                     Text(
                         text = durationText,
@@ -90,7 +86,7 @@ fun CallLogItemCard(
                     )
                 }
             }
-            
+
             // WhatsApp button
             IconButton(
                 onClick = { onWhatsAppClick(callLogItem.number) }
