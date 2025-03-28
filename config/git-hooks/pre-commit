@@ -1,0 +1,21 @@
+#!/bin/sh
+
+echo "Running ktlint check..."
+./gradlew ktlintCheck --daemon
+
+KTLINT_EXIT_CODE=$?
+if [ $KTLINT_EXIT_CODE -ne 0 ]; then
+    echo "ktlint check failed, please fix the above issues before committing"
+    exit $KTLINT_EXIT_CODE
+fi
+
+echo "Running detekt..."
+./gradlew detekt --daemon
+
+DETEKT_EXIT_CODE=$?
+if [ $DETEKT_EXIT_CODE -ne 0 ]; then
+    echo "detekt check failed, please fix the above issues before committing"
+    exit $DETEKT_EXIT_CODE
+fi
+
+exit 0
