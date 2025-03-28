@@ -1,0 +1,63 @@
+name: Android CI & Analysis of NoSaveChat App
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ "main" ] # Adjust if your main branch has a different name (e.g., master)
+  # Triggers the workflow on pull request events targeted at the main branch
+  pull_request:
+    branches: [ "main" ] # Adjust if your main branch has a different name
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-analyze:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up JDK (Android development requires Java)
+      # Choose a version compatible with your project's Gradle and Android Gradle Plugin
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin' # Or 'zulu', 'adopt', etc.
+          cache: 'gradle' # Cache Gradle dependencies based on lock files
+
+      # Step 3: Grant execute permission for gradlew
+      # Needed because checkout doesn't preserve execute permissions
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Step 4: Run Android Lint
+      # Checks for Android specific issues
+      - name: Run Android Lint
+        run: ./gradlew lintDebug
+
+      # Step 5: Run Ktlint Check
+      # Checks Kotlin code style
+      - name: Run Ktlint Check
+        run: ./gradlew ktlintCheck
+
+      # Step 6: Run Detekt Analysis
+      # Checks for code smells, complexity, etc.
+      - name: Run Detekt Analysis
+        run: ./gradlew detekt
+
+      # --- Optional but Recommended Steps ---
+
+      # Step 7: Run Unit Tests
+      #- name: Run Unit Tests
+      #  run: ./gradlew testDebugUnitTest
+
+      # Step 8: Build Debug APK
+      # Ensures the app actually builds
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
