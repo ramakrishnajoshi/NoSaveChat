@@ -1,0 +1,38 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Additional recommended entries
+/.idea/deploymentTargetDropDown.xml
+/.idea/misc.xml
+/.idea/kotlinc.xml
+/.idea/gradle.xml
+/.idea/compiler.xml
+/.idea/kotlinScripting.xml
+/.idea/jarRepositories.xml
+/.idea/vcs.xml
+/.idea/androidTestResultsUserPreferences.xml
+/.idea/migrations.xml
+/.idea/inspectionProfiles/
+/.idea/.name
+/.idea/shelf/
+/.idea/dictionaries/
+
+# Keystore files
+**/*.keystore
+**/*.jks
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json

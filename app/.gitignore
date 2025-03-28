@@ -1,0 +1,8 @@
+/build
+/release
+/debug
+/androidTest
+/test
+*.apk
+*.aab
+output.json
