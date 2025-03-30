@@ -2,6 +2,14 @@
 
 This document provides information on how to use the code quality tools integrated in this project: Ktlint and Detekt.
 
+## What's the need for using Both Detekt and Ktlint?
+
+You don't strictly need both, but they have different primary focuses, and using them together (or choosing Detekt carefully) covers more ground effectively.
+
+* **Ktlint's Primary Focus:** Formatting & Style
+* **Detekt's Primary Focus:** Code Smells, Complexity, Potential Bugs & More
+
+
 ## Code Quality Tools
 
 This project uses two complementary code quality tools to ensure consistent code style and identify potential issues:
