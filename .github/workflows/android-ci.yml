@@ -73,7 +73,7 @@ jobs:
       # Ensures the app actually builds
       - name: Build Debug APK
         run: ./gradlew assembleDebug
-      # If you need to use this APK later (e.g., upload it somewhere for testing, attach it to the 
-      # workflow run results), you would typically add another step after the build step using an 
-      # action like actions/upload-artifact@v4. Without such a step, the APK is discarded when the 
+      # If you need to use this APK later (e.g., upload it somewhere for testing, attach it to the
+      # workflow run results), you would typically add another step after the build step using an
+      # action like actions/upload-artifact@v4. Without such a step, the APK is discarded when the
       # runner finishes its job.
