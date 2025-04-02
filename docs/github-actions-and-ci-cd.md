@@ -2,6 +2,10 @@
 
 This document provides an overview of how GitHub Actions is used for automation, Continuous Integration (CI), and potentially Continuous Deployment (CD) within this project.
 
+## CI/CD Pipeline
+
+A CI/CD Pipeline is the automated sequence of steps (the "assembly line") that takes code from a developer's commit all the way to being built, tested, and potentially deployed.
+
 ## General Uses of GitHub Actions
 
 GitHub Actions is a powerful automation platform built into GitHub. It allows developers to automate workflows directly within their repository based on events like code pushes, pull requests, issue creation, or scheduled times. Common uses across different companies include:
@@ -60,3 +64,15 @@ CD automates the release process, deploying the application to users or testing 
 ---
 
 By automating CI and potentially CD with GitHub Actions, we aim to improve code quality, reduce manual release overhead, and deliver value more reliably. Please familiarize yourself with the workflows in `.github/workflows/` and the project's documentation (like `docs/static-code-analysis.md`).
+
+
+## Continuous Deployment vs Continuous Delivery
+### Continuous Delivery (CD):
+Goal: To automate the release process so that new changes, after passing automated tests in CI, can be rapidly and reliably released to users.   
+Process: Takes the build artifact from CI, runs further tests (integration, end-to-end), and prepares it for release. The deployment to production might still be a manual button push, but the preparation is automated.
+Benefit: Reduces the risk and manual effort involved in releases, allowing for more frequent updates.   
+
+### Continuous Deployment (CD - alternative meaning):
+Goal: To automatically deploy every change that passes all stages of the CI/CD pipeline to production without manual intervention.   
+Process: **Extends Continuous Delivery by automatically triggering the final deployment step**.   
+Benefit: Achieves the fastest possible release cycle. Requires a high degree of confidence in the automated testing and release process.
