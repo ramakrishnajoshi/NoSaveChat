@@ -18,6 +18,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Print some context about the workflow to the logs
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      # Step 0: Cancel previous runs on the same branch
+      # This is useful for pull requests to ensure only the latest run is considered
+      # - name: Cancel Previous Runs
+      #   uses: styfle/cancel-workflow-action@0.12.0
+      #   with:
+      #     access_token: ${{ github.token }}
+
+      # Add some context about the workflow to the logs
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
       # Step 1: Check out the repository code
       - name: Checkout code
         uses: actions/checkout@v4
@@ -61,3 +78,8 @@ jobs:
       # Ensures the app actually builds
       - name: Build Debug APK
         run: ./gradlew assembleDebug
+      # If you need to use this APK later (e.g., upload it somewhere for testing, attach it to the 
+      # workflow run results), you would typically add another step after the build step using an 
+      # action like actions/upload-artifact@v4. Without such a step, the APK is discarded when the 
+      # runner finishes its job.
+      
