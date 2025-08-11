@@ -14,6 +14,9 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.example.nosavechat.ui.screens.CallLogScreen
 import com.example.nosavechat.ui.theme.noSaveChatTheme
 import com.example.nosavechat.viewmodel.CallLogViewModel
@@ -23,8 +26,21 @@ class MainActivity : ComponentActivity() {
     // Initialize ViewModel
     private val viewModel: CallLogViewModel by viewModels()
 
+    // Lifecycle observer to detect app foreground/background state
+    private val lifecycleObserver = object : DefaultLifecycleObserver {
+        override fun onStart(owner: LifecycleOwner) {
+            super.onStart(owner)
+            // App came to foreground, refresh call logs
+            viewModel.refreshCallLogs()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Register lifecycle observer to detect when app comes to foreground
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+
         enableEdgeToEdge()
         setContent {
             noSaveChatTheme {
@@ -48,5 +64,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Remove lifecycle observer to prevent memory leaks
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleObserver)
     }
 }

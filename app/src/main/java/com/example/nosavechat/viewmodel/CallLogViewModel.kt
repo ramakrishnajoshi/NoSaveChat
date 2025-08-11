@@ -47,4 +47,14 @@ class CallLogViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
+
+    /**
+     * Refreshes call logs when app returns from background
+     */
+    fun refreshCallLogs() {
+        // Only refresh if we have permission and not currently loading
+        if (_isLoading.value == false) {
+            loadCallLogs()
+        }
+    }
 }
