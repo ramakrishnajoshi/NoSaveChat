@@ -25,7 +25,7 @@ import com.example.nosavechat.viewmodel.CallLogViewModel
 class MainActivity : ComponentActivity() {
     // Initialize ViewModel
     private val viewModel: CallLogViewModel by viewModels()
-    
+
     // Lifecycle observer to detect app foreground/background state
     private val lifecycleObserver = object : DefaultLifecycleObserver {
         override fun onStart(owner: LifecycleOwner) {
@@ -37,10 +37,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         // Register lifecycle observer to detect when app comes to foreground
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
-        
+
         enableEdgeToEdge()
         setContent {
             noSaveChatTheme {
@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    
+
     override fun onDestroy() {
         super.onDestroy()
         // Remove lifecycle observer to prevent memory leaks
